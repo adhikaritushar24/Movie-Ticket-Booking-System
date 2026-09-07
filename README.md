@@ -22,7 +22,7 @@ A simple and clean C++ implementation of a Movie Ticket Booking System using OOP
 ```
 
 ## 🧱 Class Diagram
-
+![Class Diagram](images/movie_ticket_booking_system_class_diagram.png)
 This diagram is 100% matched with your codebase headers.
 
 
@@ -47,6 +47,7 @@ enum class BookingStatus { PENDING, CONFIRMED, FAILED, CANCELLED };
 Complete booking flow from search to ticket print, including failure cases.
 
 
+![Sequence Diagram](images/movie_ticket_booking_sequence_diagram.png)
 
 
 ### Flow Description:
