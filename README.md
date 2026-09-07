@@ -1,4 +1,4 @@
-# Movie Ticket Booking System - C++
+<img width="1920" height="1280" alt="image" src="https://github.com/user-attachments/assets/e14ec812-91f6-45b4-b5fe-18cef35ecce7" /># Movie Ticket Booking System - C++
 
 A simple and clean C++ implementation of a Movie Ticket Booking System using OOP principles. This project follows SOLID principles with proper class segregation.
 
@@ -97,8 +97,8 @@ public:
     void cancel();
 };
 ```
-![Class Diagram](movie_ticket_booking_system_class_diagram.webp)
-![Sequence Diagram](movie_ticket_booking_sequence_diagram.webp)
+<img width="1920" height="1280" alt="image" src="https://github.com/user-attachments/assets/df5be998-c950-441d-a259-bd068921684e" />
+
 ## 🚀 How to Compile & Run
 
 ```bash
