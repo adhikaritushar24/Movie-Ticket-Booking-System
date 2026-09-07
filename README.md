@@ -1,4 +1,3 @@
-<img width="1920" height="1280" alt="image" src="https://github.com/user-attachments/assets/e14ec812-91f6-45b4-b5fe-18cef35ecce7" /># Movie Ticket Booking System - C++
 
 A simple and clean C++ implementation of a Movie Ticket Booking System using OOP principles. This project follows SOLID principles with proper class segregation.
 
@@ -47,7 +46,8 @@ enum class BookingStatus { PENDING, CONFIRMED, FAILED, CANCELLED };
 
 Complete booking flow from search to ticket print, including failure cases.
 
-![Sequence Diagram](./gallery/movie_ticket_booking_sequence_diagram.webp)
+<img width="1920" height="1280" alt="image" src="https://github.com/user-attachments/assets/a7fe1228-a9ad-4a2b-9c35-f42a6a97bc1a" />
+
 
 ### Flow Description:
 
