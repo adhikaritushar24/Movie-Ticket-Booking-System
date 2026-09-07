@@ -1,76 +1,67 @@
+🎬 Movie Ticket Booking System - C++
+A simple and clean C++ implementation of a Movie Ticket Booking System using OOP principles. This project follows SOLID principles with proper class segregation and is designed from UML to code.
 
-A simple and clean C++ implementation of a Movie Ticket Booking System using OOP principles. This project follows SOLID principles with proper class segregation.
+📂 GitHub Repository: https://github.com/adhikaritushar24/Movie-Ticket-Booking-System
 
-## 📁 Project Structure
+📁 Project Structure
+MovieTicket/
+├── .gitignore
+├── main.cpp                # Entry point - Console Menu System
+├── main.exe                # Compiled executable
+├── Movie.h / Movie.cpp
+├── Screen.h / Screen.cpp   # Screen containing vector<Seat>
+├── Seat.h / Seat.cpp       # Seat with SeatType (SILVER, GOLD, PLATINUM)
+├── Show.h / Show.cpp       # Show with Movie* and Screen*
+├── ShowSeat.h / ShowSeat.cpp # Show-specific seat with SeatStatus
+├── Cinema.h / Cinema.cpp   # Manages Movies and Shows
+├── Customer.h / Customer.cpp
+├── Booking.h / Booking.cpp # Booking with Customer*, Show*, vector<ShowSeat*>
+├── BookingService.h / BookingService.cpp # Core service for booking logic
+├── Payment.h / Payment.cpp # Abstract Payment class
+├── PaymentTypes.h / PaymentTypes.cpp # UpiPayment, CardPayment, CashPayment
+├── PriceCalculator.h / PriceCalculator.cpp
+├── TicketPrinter.h / TicketPrinter.cpp
+├── README.md
 
-```
-/headers
-  ├── Seat.h              # Seat with SeatType (SILVER, GOLD, PLATINUM)
-  ├── Screen.h            # Screen containing vector<Seat>
-  ├── Movie.h             # Movie details
-  ├── Show.h              # Show with Movie* and Screen*
-  ├── ShowSeat.h          # Show-specific seat with SeatStatus
-  ├── Customer.h          # Customer info
-  ├── Booking.h           # Booking with Customer*, Show*, vector<ShowSeat*>
-  ├── Payment.h           # Abstract Payment class
-  ├── PaymentTypes.h      # UpiPayment, CardPayment, CashPayment
-  ├── PriceCalculator.h   # Utility to calculate price
-  └── TicketPrinter.h     # Utility to print ticket
-/src
-  ├── *.cpp               # Implementations
-  └── main.cpp
-```
+All headers (.h) and implementations (.cpp) are in the same folder for simple flat-file compilation. No separate headers/src folder.
 
-## 🧱 Class Diagram
-![Class Diagram](images/movie_ticket_booking_system_class_diagram.png)
+🧱 Class Diagram
+Image unavailable. Please retry the request.
+
 This diagram is 100% matched with your codebase headers.
 
-
-
-### Key Relationships:
-- **Composition**: `Screen ◆-- Seat` (Screen owns Seats by value - `vector<Seat>`)
-- **Aggregation**: `Show ◇-- Movie* , Screen*` (Show has pointers)
-- **Composition/Aggregation**: `ShowSeat -- Seat` (ShowSeat contains Seat by value)
-- **Aggregation**: `Booking ◇-- Customer*, Show*, ShowSeat*` (Booking holds pointers)
-- **Inheritance**: `Payment <|-- UpiPayment, CardPayment, CashPayment`
-- **Dependency**: `PriceCalculator ..> ShowSeat, SeatType` and `TicketPrinter ..> Booking`
-
-### Enums:
-```cpp
+Key Relationships:
+Composition Screen ◆-- Seat : Screen owns Seats by value vector<Seat>
+Aggregation Show ◇-- Movie* , Screen* : Show has pointers to Movie and Screen
+Composition ShowSeat -- Seat : ShowSeat contains Seat by value
+Aggregation Cinema ◇-- Movie, Show : Cinema manages collection
+Aggregation Booking ◇-- Customer*, Show*, ShowSeat* : Booking holds pointers
+Inheritance Payment <|-- UpiPayment, CardPayment, CashPayment
+Dependency PriceCalculator ..> ShowSeat, SeatType and TicketPrinter ..> Booking and BookingService ..> Cinema, Booking
+Enums (from your code):
+cpp
 enum class SeatType { SILVER, GOLD, PLATINUM };
 enum class SeatStatus { AVAILABLE, BOOKED };
 enum class BookingStatus { PENDING, CONFIRMED, FAILED, CANCELLED };
-```
+🔄 Sequence Diagram - Book Ticket Flow
+Image unavailable. Please retry the request.
 
-## 🔄 Sequence Diagram - Book Ticket Flow
+Complete Flow (Matches your console output):
+listMovies() - MAIN MENU Choice: 1 -> Cinema: getMovies()
+selectShow(showId) - MAIN MENU Choice: 3 -> Show ID 1 -> Cinema: getShow(1) -> Selected: Show #1 | Movie: Fight-Club | Screen: 1 | Time: 7:00 PM
+getSeatAvailability() - MAIN MENU Choice: 4 -> ShowSeat: isAvailable() -> Display A1 [SILVER] Rs.150 - AVAILABLE etc.
+bookSeats([A1]) - MAIN MENU Choice: 5 -> Enter seat numbers: A1 -> isAvailable() check
+calculatePrice() - PriceCalculator: calculatePrice() -> Total amount for 1 seat(s): Rs.150
+pay() - Select payment: 3. Cash -> Polymorphic Payment->pay(amount) -> Cash received. Payment successful.
+createBooking() & confirm() - On success Booking: confirm() -> Status: CONFIRMED
+printTicket() - TicketPrinter: printTicket(Booking&) -> Prints Booking ID, Movie, Screen, Seats, Amount
+Alt / Failure Flows:
+alt [Seat already booked]: isAvailable() == false -> "Seat already booked"
+alt [Payment failed]: pay() == false -> Booking: fail() -> ShowSeat: release()
+🔑 Core Code Snippets (Exact from your code)
+ShowSeat.h
 
-Complete booking flow from search to ticket print, including failure cases.
-
-
-![Sequence Diagram](images/movie_ticket_booking_sequence_diagram.png)
-
-
-### Flow Description:
-
-1.  **searchMovies()** - User searches movies -> BookingService -> Cinema: getMovies()
-2.  **selectMovie(movieId)** -> getShows(movieId)
-3.  **selectShow(showId)** -> Show: getShow(), getScreen(), displaySeats()
-4.  **selectSeats(seatNumbers)** -> ShowSeat: isAvailable() -> checks SeatStatus, getPrice()
-5.  **createBooking(customer, show)** -> Booking: new Booking(customer, show)
-    - Loop: addSeat(ShowSeat*, price) + book()
-6.  **calculatePrice(seats)** -> PriceCalculator: calculatePrice(vector<ShowSeat*>)
-7.  **pay(bookingId, paymentMethod)** -> Payment: pay(amount) (UPI/Card/Cash polymorphism)
-8.  **confirmBooking(bookingId)** -> On success: Booking: confirm() -> Status CONFIRMED
-9.  **printTicket(bookingId)** -> TicketPrinter: printTicket(Booking&)
-
-### Alt Flows:
-- **alt [Seat already booked]**: isAvailable() == false -> "Seat already booked"
-- **alt [Payment failed]**: pay() fails -> Booking: fail() + cancel() + ShowSeat: release()
-
-## 🔑 Core Code Snippets
-
-### ShowSeat.h (Exact from your code)
-```cpp
+cpp
 class ShowSeat {
 private:
     Seat seat;
@@ -79,12 +70,10 @@ public:
     bool isAvailable();
     void book();
     void release();
-    // ...
 };
-```
+Booking.h
 
-### Booking.h (Exact from your code)
-```cpp
+cpp
 class Booking {
     static int nextBookingId;
     Customer* customer;
@@ -97,20 +86,26 @@ public:
     void fail();
     void cancel();
 };
-```
-<img width="1920" height="1280" alt="image" src="https://github.com/user-attachments/assets/df5be998-c950-441d-a259-bd068921684e" />
+🚀 How to Compile & Run
+Since it's a flat structure, compile directly inside MovieTicketFlat:
 
-## 🚀 How to Compile & Run
+bash
+# Inside MovieTicketFlat folder
+g++ -std=c++17 *.cpp -o main
+./main          # Linux/Mac
+.\main.exe      # Windows PowerShell
 
-```bash
-g++ -std=c++17 src/*.cpp -o booking_system
-./booking_system
-```
+# Or compile file by file (as shown in your screenshot)
+g++ -std=c++17 main.cpp Booking.cpp BookingService.cpp Cinema.cpp Customer.cpp Movie.cpp Payment.cpp PaymentTypes.cpp PriceCalculator.cpp Screen.cpp Seat.cpp Show.cpp ShowSeat.cpp TicketPrinter.cpp -o main
+Menu Flow to test:
 
-## 💡 Design Patterns Used
-- **Strategy Pattern**: Payment (UpiPayment, CardPayment, CashPayment)
-- **Utility Classes**: PriceCalculator, TicketPrinter
-- **Enum for State Management**: BookingStatus, SeatStatus
-
----
-Made for academic project 
+1. List Movies
+3. Select a Show -> Enter 1
+4. Show Seat Availability
+5. Book Seats -> A1 -> 3 (Cash)
+💡 Design Concepts Used
+Strategy Pattern: Payment base class with UpiPayment, CardPayment, CashPayment
+Composition over Inheritance: Screen owns Seat by value
+SOLID: Single Responsibility (PriceCalculator, TicketPrinter separate), Open/Closed (Payment extensible), Dependency Inversion (Booking depends on Payment abstraction)
+Encapsulation: Seat status managed via book()/release()/isAvailable()
+Made for System Design coursework.
