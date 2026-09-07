@@ -97,7 +97,8 @@ public:
     void cancel();
 };
 ```
-
+![Class Diagram](movie_ticket_booking_system_class_diagram.webp)
+![Sequence Diagram](movie_ticket_booking_sequence_diagram.webp)
 ## 🚀 How to Compile & Run
 
 ```bash
