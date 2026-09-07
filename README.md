@@ -7,7 +7,7 @@ A simple and clean C++ implementation of a Movie Ticket Booking System using OOP
 ## 📁 Project Structure
 
 ```
-MovieTicketFlat/
+MovieTicketF/
 ├── .gitignore
 ├── main.cpp                # Entry point - Console Menu System
 ├── main.exe                # Compiled executable
@@ -25,11 +25,7 @@ MovieTicketFlat/
 ├── PriceCalculator.h / PriceCalculator.cpp
 ├── TicketPrinter.h / TicketPrinter.cpp
 ├── README.md
-└── images/
-    ├── movie_ticket_booking_system_class_diagram.png
-    ├── movie_ticket_booking_sequence_diagram.png
-    ├── console_part1_steps_1_2.png
-    └── console_part2_steps_3_4.png
+
 ```
 
 > All headers (.h) and implementations (.cpp) are in the same folder for simple flat-file compilation. No separate headers/src folder.
