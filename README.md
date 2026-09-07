@@ -25,7 +25,7 @@ A simple and clean C++ implementation of a Movie Ticket Booking System using OOP
 
 This diagram is 100% matched with your codebase headers.
 
-![Class Diagram](./gallery/movie_ticket_booking_system_class_diagram.webp)
+
 
 ### Key Relationships:
 - **Composition**: `Screen ◆-- Seat` (Screen owns Seats by value - `vector<Seat>`)
@@ -46,7 +46,7 @@ enum class BookingStatus { PENDING, CONFIRMED, FAILED, CANCELLED };
 
 Complete booking flow from search to ticket print, including failure cases.
 
-<img width="1920" height="1280" alt="image" src="https://github.com/user-attachments/assets/a7fe1228-a9ad-4a2b-9c35-f42a6a97bc1a" />
+
 
 
 ### Flow Description:
